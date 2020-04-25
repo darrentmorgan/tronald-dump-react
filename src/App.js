@@ -12,7 +12,7 @@ class App extends Component {
 
   fetchQuote = () => {
     axios
-      .get("http://www.tronalddump.io/random/quote")
+      .get("https://www.tronalddump.io/random/quote")
       .then((response) => {
         const { value } = response.data;
         this.setState({
@@ -31,7 +31,7 @@ class App extends Component {
         <div className="card">
           <h1 className="heading">{quote}</h1>
           <button className="button">
-            <span onClick={this.fetchQuote}>GIVE ME YOUR WISDOM!</span>
+            <span onClick={this.fetchQuote}>GIVE ME YOUR PASSION!</span>
           </button>
         </div>
       </div>
