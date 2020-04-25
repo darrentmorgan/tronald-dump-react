@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import axios from "axios";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = { quote: "" };
+
+  componentDidMount() {
+    this.fetchQuote();
+  }
+
+  fetchQuote = () => {
+    axios
+      .get("http://www.tronalddump.io/random/quote")
+      .then((response) => {
+        const { value } = response.data;
+        this.setState({
+          quote: value,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  render() {
+    const { quote } = this.state;
+    return (
+      <div className="App">
+        <div className="card">
+          <h1 className="heading">{quote}</h1>
+          <button className="button">
+            <span onClick={this.fetchQuote}>GIVE ME YOUR WISDOM!</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
